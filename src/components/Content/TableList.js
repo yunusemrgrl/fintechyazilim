@@ -1,7 +1,11 @@
 import Table from 'react-bootstrap/Table';
-import Image from 'react-bootstrap/Image';
 import Container from 'react-bootstrap/Container';
-function DarkExample() {
+import { Image } from 'react-bootstrap';
+
+import { useCountries } from '../../context/services';
+function TableList() {
+  const { countries, filteredCapital } = useCountries();
+  console.log(filteredCapital);
   return (
     <Container>
       <Table striped bordered hover variant='dark' className='mt-5' size='sm'>
@@ -14,24 +18,40 @@ function DarkExample() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td width={120}>
-              <Image
-                rounded
-                src='https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Flag_of_the_Taliban.svg/320px-Flag_of_the_Taliban.svg.png'
-                alt=''
-                width={100}
-                height={60}
-              ></Image>
-            </td>
-            <td className='align-middle'>Mark</td>
-            <td className='align-middle'>Otto</td>
-            <td className='align-middle'>@mdo</td>
-          </tr>
+          {!countries && (
+            <tr>
+              <td colSpan={4}>Loading..</td>
+            </tr>
+          )}
+          {countries &&
+            countries.map((country, index) => (
+              <tr key={index}>
+                <td width={110}>
+                  <Image
+                    rounded
+                    src={country.flags.png}
+                    alt=''
+                    width={100}
+                    height={60}
+                  ></Image>
+                </td>
+                <td className='align-middle'>{country.name}</td>
+                <td
+                  className={
+                    country.capital
+                      ? 'align-middle '
+                      : ' align-middle  text-center'
+                  }
+                >
+                  {country.capital ? country.capital : '-'}
+                </td>
+                <td className='align-middle'>{country.region}</td>
+              </tr>
+            ))}
         </tbody>
       </Table>
     </Container>
   );
 }
 
-export default DarkExample;
+export default TableList;
