@@ -7,7 +7,7 @@ function TableList() {
   const { loading, filteredCountries } = useCountries();
   return (
     <Container>
-      <Table striped bordered hover variant='dark' className='mt-5' size='sm'>
+      <Table striped bordered hover variant='dark' className='mt-5'>
         <thead>
           <tr>
             <th>Flag</th>
