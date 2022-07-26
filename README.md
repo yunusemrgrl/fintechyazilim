@@ -1,5 +1,7 @@
 # Getting Started with Create React App
 
+# [Open Live Link](https://62e019f9f6d8be1e50b953b9--findcapital.netlify.app/)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
