@@ -1,20 +1,20 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import { useCountries } from '../../context/services';
 
 function Search() {
-  const { setFilteredCapital, filteredCapital } = useCountries();
-  const Input = useRef();
+  const { search, setSearch } = useCountries();
+  const inputRef = useRef();
 
   return (
     <div className='d-flex justify-content-center mt-4 '>
       <input
         className='rounded-4 border-0 px-3 py-2 '
         type='text'
-        ref={Input}
-        value={filteredCapital}
+        ref={inputRef}
+        value={search}
         placeholder='Search by capital..'
         style={{ width: '300px', outline: 'none' }}
-        onChange={(e) => setFilteredCapital(e.target.value)}
+        onChange={(e) => setSearch(e.target.value)}
       />
     </div>
   );

@@ -1,11 +1,10 @@
 import Table from 'react-bootstrap/Table';
 import Container from 'react-bootstrap/Container';
-import { Image } from 'react-bootstrap';
 
 import { useCountries } from '../../context/services';
+import TableItem from './TableItem';
 function TableList() {
-  const { countries, filteredCapital } = useCountries();
-  console.log(filteredCapital);
+  const { loading, filteredCountries } = useCountries();
   return (
     <Container>
       <Table striped bordered hover variant='dark' className='mt-5' size='sm'>
@@ -18,36 +17,21 @@ function TableList() {
           </tr>
         </thead>
         <tbody>
-          {!countries && (
+          {loading && (
             <tr>
               <td colSpan={4}>Loading..</td>
             </tr>
           )}
-          {countries &&
-            countries.map((country, index) => (
-              <tr key={index}>
-                <td width={110}>
-                  <Image
-                    rounded
-                    src={country.flags.png}
-                    alt=''
-                    width={100}
-                    height={60}
-                  ></Image>
-                </td>
-                <td className='align-middle'>{country.name}</td>
-                <td
-                  className={
-                    country.capital
-                      ? 'align-middle '
-                      : ' align-middle  text-center'
-                  }
-                >
-                  {country.capital ? country.capital : '-'}
-                </td>
-                <td className='align-middle'>{country.region}</td>
-              </tr>
+          {!loading &&
+            filteredCountries.length > 0 &&
+            filteredCountries.map((country, index) => (
+              <TableItem country={country} key={index} />
             ))}
+          {!loading && filteredCountries.length === 0 && (
+            <tr>
+              <td colSpan={4}>Eşleşme Bulunamadı.</td>
+            </tr>
+          )}
         </tbody>
       </Table>
     </Container>
