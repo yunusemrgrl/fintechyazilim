@@ -4,7 +4,6 @@ import { useCountries } from '../../context/services';
 function Search() {
   const { search, setSearch, capital, setCapital } = useCountries();
   const inputRef = useRef();
-
   return (
     <div className=' d-flex justify-content-center'>
       <div

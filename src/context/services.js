@@ -9,6 +9,7 @@ export const CountriesProvider = ({ children }) => {
   const [filteredCountries, setFilteredCountries] = useState([]);
   const [search, setSearch] = useState('');
   const [capital, setCapital] = useState(false);
+
   const fetchApiData = async () => {
     try {
       setLoading(true);
@@ -17,7 +18,6 @@ export const CountriesProvider = ({ children }) => {
       setCountries(response.data);
       setFilteredCountries(response.data);
       setLoading(false);
-      console.log(response.data);
     } catch (err) {
       console.log(err.message);
     }
@@ -26,15 +26,17 @@ export const CountriesProvider = ({ children }) => {
   useEffect(() => {
     fetchApiData();
   }, []);
-
   useEffect(() => {
+    let searchFiltered = search.toLocaleUpperCase('en-US');
     if (capital) {
       if (countries) {
         setFilteredCountries(
           countries.filter((country) => {
             if (
               country.capital &&
-              country.capital.toLowerCase().includes(search.toLocaleLowerCase())
+              country.capital
+                .toLocaleUpperCase('en-US')
+                .includes(searchFiltered)
             ) {
               return country;
             }
@@ -49,10 +51,9 @@ export const CountriesProvider = ({ children }) => {
             if (
               country.capital &&
               JSON.stringify(country)
-                .toLowerCase()
-                .includes(search.toLocaleLowerCase())
+                .toLocaleUpperCase('en-US')
+                .includes(searchFiltered)
             ) {
-              console.log(country);
               return country;
             }
             return null;
